@@ -1,3 +1,2 @@
 export const SET_CITY = 'SET_CITY';
-export const GET_PHOTOS_REQUEST = 'GET_PHOTOS_REQUEST';
 export const GET_TEMP_SUCCESS = 'GET_TEMP_SUCCESS';
