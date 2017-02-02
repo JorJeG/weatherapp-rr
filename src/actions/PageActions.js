@@ -17,5 +17,4 @@ export function setCity(city) {
       })
     }, 1000)
   };
-
 }

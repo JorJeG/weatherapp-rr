@@ -1,0 +1,23 @@
+{"cnt":2,
+"list":[
+  {"coord":{"lon":37.62,"lat":55.75},
+  "sys":{"type":1,"id":7323,"message":0.0176,"country":"RU","sunrise":1486012864,"sunset":1486044372},
+  "weather":[{"id":800,"main":"Clear","description":"clear sky","icon":"01n"}],
+  "main":{"temp":265.82,"pressure":1023,"humidity":78,"temp_min":265.15,"temp_max":266.15},
+  "visibility":10000,
+  "wind":{"speed":4,"deg":340},
+  "clouds":{"all":0},
+  "dt":1486005581,
+  "id":524901,
+  "name":"Moscow"},
+  {"coord":{"lon":145.77,"lat":-16.92},
+  "sys":{"type":1,"id":8166,"message":0.0045,"country":"AU","sunrise":1485979549,"sunset":1486025713},
+  "weather":[{"id":521,"main":"Rain","description":"shower rain","icon":"09d"}],
+  "main":{"temp":299.15,"pressure":1009,"humidity":94,"temp_min":299.15,"temp_max":299.15},
+  "visibility":4000,
+  "wind":{"speed":2.6,"deg":250},
+  "clouds":{"all":75},
+  "dt":1486005581,
+  "id":2172797,
+  "name":"Cairns"}]
+}

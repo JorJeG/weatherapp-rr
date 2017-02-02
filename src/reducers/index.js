@@ -6,3 +6,12 @@ export default combineReducers({
   page,
   user
 })
+
+
+/*
+import fetch from 'isomorphic-fetch'
+
+fetch('URL')
+  .then((response) => response.json())
+  .then()
+*/
