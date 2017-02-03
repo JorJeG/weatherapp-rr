@@ -6,8 +6,6 @@ export default function cities(state = initialState, action) {
     return [
       ...state, action.payload
     ];
-  case 'SELECT_CITY':
-    return action.payload;
   default:
     return state;
   }

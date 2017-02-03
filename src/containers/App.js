@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class App extends Component {
+//   getInititalState() {
+//     return { visible: false }
+//   }
   addCity() {
+    if (!this.cityInput.value.trim()) {
+      return
+    }
     this.props.onAddCity(this.cityInput.value);
     this.cityInput.value = '';
-  }
-  showWeather(e) {
-    console.log('city name is', e.target.innerText.toLowerCase());
-    this.props.onShowWeather(e.target.innerText);
   }
   render() {
     return (
@@ -22,7 +24,6 @@ class App extends Component {
               <li
                 className="btn"
                 key={city.id}
-                onClick={this.showWeather}
                 >
                 {city.name}
               </li>
@@ -41,15 +42,10 @@ export default connect(
     onAddCity: (name) => {
       const payload = {
         id: Date.now().toString(),
-        name
+        name,
+        visible: false
       };
       dispatch({ type: 'ADD_CITY', payload });
     }
-    // onShowWeather: (name) => {
-    //   const payload = {
-    //     name
-    //   };
-    //   dispatch({ type: 'SELECT_CITY', payload });
-    // }
   })
 )(App);
