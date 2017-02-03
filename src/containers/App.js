@@ -1,34 +1,55 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import User from '../components/User';
-import Page from '../components/Page';
-import * as pageActions from '../actions/PageActions';
 
 class App extends Component {
+  addCity() {
+    this.props.onAddCity(this.cityInput.value);
+    this.cityInput.value = '';
+  }
+  showWeather(e) {
+    console.log('city name is', e.target.innerText.toLowerCase());
+    this.props.onShowWeather(e.target.innerText);
+  }
   render() {
-    const { user, page } = this.props;
-    const { setCity } = this.props.pageActions;
-
     return (
-      <div className="row">
-        <User name={user.name} />
-        <Page temp={page.temp} city={page.city} setCity={setCity} fetching={page.fetching} />
-      </div>);
+      <div className="app">
+        <div className="input">
+          <input type="text" placeholder="название города" ref={(input) => { this.cityInput = input}} />
+          <button onClick={this.addCity.bind(this)}>Add city</button>
+        </div>
+        <ul className="user">
+          {this.props.cities.map((city) =>
+              <li
+                className="btn"
+                key={city.id}
+                onClick={this.showWeather}
+                >
+                {city.name}
+              </li>
+          )}
+        </ul>
+      </div>
+    );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-    page: state.page
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    pageActions: bindActionCreators(pageActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(
+  state => ({
+    cities: state.cities
+  }),
+  dispatch => ({
+    onAddCity: (name) => {
+      const payload = {
+        id: Date.now().toString(),
+        name
+      };
+      dispatch({ type: 'ADD_CITY', payload });
+    }
+    // onShowWeather: (name) => {
+    //   const payload = {
+    //     name
+    //   };
+    //   dispatch({ type: 'SELECT_CITY', payload });
+    // }
+  })
+)(App);
