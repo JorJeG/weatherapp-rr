@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers,
          applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import throttle from 'lodash/throttle';
+import { saveState, loadState } from './localStorage';
 
 import './index.css';
 
@@ -50,12 +52,12 @@ const reducers = combineReducers({
 
 const middleware = composeWithDevTools(applyMiddleware(actionLogger));
 
+const persistedState = loadState();
 const store = createStore(
   reducers,
+  persistedState,
   middleware
 )
-
-let nextCityId = 0;
 
 class CityApp extends Component {
   render() {
@@ -70,7 +72,7 @@ class CityApp extends Component {
                 type: 'ADD_CITY',
                 text: this.input.value,
                 visible: false,
-                id: nextCityId++
+                id: Date.now().toString()
               });
               this.input.value = '';}
             }}>
@@ -116,3 +118,6 @@ const render = () => {
 
 render()
 store.subscribe(render);
+store.subscribe(throttle(() => {
+  saveState(store.getState());
+}, 1000));
