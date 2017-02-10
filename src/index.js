@@ -57,28 +57,36 @@ const store = createStore(
   reducers,
   persistedState,
   middleware
-)
+);
 
-class CityApp extends Component {
+const CityApp = React.createClass({
+  handleSubmit(e) {
+    e.preventDefault();
+    const city = this.refs.nameCity.value;
+    if(city.trim()) {
+      store.dispatch({
+        type: 'ADD_CITY',
+        text: city,
+        visible: false,
+        id: Date.now().toString()
+      });
+    }
+    this.refs.addForm.reset();
+  },
   render() {
     return (
       <div className="row search">
         <div className="col-md-4">
-          <div className="row">
-            <input className="col-sm-8" ref={node => this.input = node } />
-            <button className="btn btn-primary col-sm-4" onClick={() => {
-              if (this.input.value.trim()){
-              store.dispatch({
-                type: 'ADD_CITY',
-                text: this.input.value,
-                visible: false,
-                id: Date.now().toString()
-              });
-              this.input.value = '';}
-            }}>
-              ADD CITY
-            </button>
-          </div>
+          <form
+            className="row"
+            onSubmit={this.handleSubmit}
+            ref="addForm">
+            <input
+              className="col-sm-12"
+              ref="nameCity"
+              placeholder="add city"/>
+            <input type="submit" hidden />
+          </form>
           <ul className="list-group row">
             {this.props.cities.map(city =>
               <li key={city.id}
@@ -104,8 +112,7 @@ class CityApp extends Component {
         </div>
       </div>
     );
-  }
-}
+  }});
 
 const render = () => {
   ReactDOM.render(
@@ -116,7 +123,7 @@ const render = () => {
   )
 };
 
-render()
+render();
 store.subscribe(render);
 store.subscribe(throttle(() => {
   saveState(store.getState());
