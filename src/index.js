@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers,
          applyMiddleware } from 'redux';
@@ -32,15 +32,10 @@ const cities = (state = [], action) => {
         city(undefined, action)
       ];
       case 'REMOVE_CITY':
-        return state.map(city => {   // чтобы не менять массив
-          if (city.id !== action.id) {
-            return city;
-          }
-          return {
-            ...city,
-            visible: !city.visible
-          };
-        });
+        return [
+          ...state.slice(0,action.i),
+          ...state.slice(action.i + 1)
+        ];
     default:
       return state;
   }
@@ -88,8 +83,8 @@ const CityApp = React.createClass({
             <input type="submit" hidden />
           </form>
           <ul className="list-group row">
-            {this.props.cities.map(city =>
-              <li key={city.id}
+            {this.props.cities.map((city, i) =>
+              <li key={city.id} 
                   style={{display:
                       city.visible ?
                         'none' :
@@ -102,7 +97,8 @@ const CityApp = React.createClass({
                   onClick={() => {
                     store.dispatch({
                     type: 'REMOVE_CITY',
-                    id: city.id
+                    id: city.id,
+                    i
                   });
                 }}>
                   <span className="glyphicon glyphicon-remove"></span></button>
