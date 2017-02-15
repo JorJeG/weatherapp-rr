@@ -57,7 +57,7 @@ const store = createStore(
 const CityApp = React.createClass({
   handleSubmit(e) {
     e.preventDefault();
-    const city = this.refs.nameCity.value;
+    const city = this.input.value;
     if(city.trim()) {
       store.dispatch({
         type: 'ADD_CITY',
@@ -66,32 +66,27 @@ const CityApp = React.createClass({
         id: Date.now().toString()
       });
     }
-    this.refs.addForm.reset();
+    this.input.value = '';
   },
+
   render() {
     return (
       <div className="row search">
         <div className="col-md-4">
           <form
             className="row"
-            onSubmit={this.handleSubmit}
-            ref="addForm">
+            onSubmit={this.handleSubmit}>
             <input
               className="col-sm-12"
-              ref="nameCity"
+              ref={(node) => { this.input = node; }}
               placeholder="add city"/>
             <input type="submit" hidden />
           </form>
           <ul className="list-group row">
             {this.props.cities.map((city, i) =>
-              <li key={city.id} 
-                  style={{display:
-                      city.visible ?
-                        'none' :
-                        ''}}
+              <li key={city.id}
                   className="list-group-item col-sm-12">
                 {city.text}
-                {' '}
                 <button
                   className="btn btn-danger pull-right"
                   onClick={() => {
