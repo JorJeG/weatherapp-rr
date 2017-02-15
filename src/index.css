@@ -1,10 +1,186 @@
+* {
+  box-sizing: border-box;
+}
+body, html {
+  height: 100%;
+  background-color: #f9f9f9;
+}
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   text-transform: uppercase;
   font-size: 2em;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial;
 }
 .search {
-  padding-top: 20px;
+  display: flex;
+  padding: 10px 10px;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.cityContainer {
+  order: 1;
+  height: 300px;
+  width: 300px;
+  position: relative;
+  background: #fff;
+  margin: 5px 5px;
+  border-radius: 8px;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+}
+.city:hover ~ .button, .button:hover {
+  display: block;
+}
+.city {
+  font-weight: 400;
+  height: 100%;
+  padding: 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  align-items: center;
+  overflow: hidden;
+}
+.button {
+  display: none;
+  margin: 0 0;
+  font-size: 32px;
+  position:absolute;
+  top: 5px;
+  right: 5px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  line-height: 32px;
+  text-align: center;
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              display 0.1s;
+}
+.button:hover {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  background: #64B5F6;
+  transition-delay: 0s;
+}
+.searchItem {
+  order: 2;
+  height: 300px;
+  width: 300px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 5px 5px;
+  border-radius: 8px;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+}
+.nameCity {
+  padding-top: 32px;
+  font-size: 1em;
+  margin: 0 0;
+}
+.temperature {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 0 0;
+}
+.something {
+  margin: 0 0;
+}
+/* form starting stylings ------------------------------- */
+
+form {
+  position: relative;
+}
+input {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus {
+  outline:none;
+}
+/* LABEL ======================================= */
+label {
+  color:#999;
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label {
+  top:-20px;
+  font-size:14px;
+  color:#5264AE;
+}
+/* BOTTOM BARS ================================= */
+.bar {
+  position:relative;
+  display:block;
+  width:300px;
+}
+.bar:before, .bar:after {
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#5264AE;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%;
+}
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%;
+  width:100px;
+  top:25%;
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
 }

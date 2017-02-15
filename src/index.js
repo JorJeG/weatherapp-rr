@@ -71,36 +71,42 @@ const CityApp = React.createClass({
 
   render() {
     return (
-      <div className="row search">
-        <div className="col-md-4">
-          <form
-            className="row"
-            onSubmit={this.handleSubmit}>
-            <input
-              className="col-sm-12"
-              ref={(node) => { this.input = node; }}
-              placeholder="add city"/>
-            <input type="submit" hidden />
-          </form>
-          <ul className="list-group row">
+      <div className="search">
             {this.props.cities.map((city, i) =>
-              <li key={city.id}
-                  className="list-group-item col-sm-12">
-                {city.text}
-                <button
-                  className="btn btn-danger pull-right"
+              <div
+                key={city.id}
+                className="cityContainer">
+                <div className="city">
+                  <p className="nameCity">{city.text}</p>
+                  <p className="temperature">10˚C</p>
+                  <p className="something">Picture</p>
+                </div>
+                <p
+                  className="button"
                   onClick={() => {
                     store.dispatch({
                     type: 'REMOVE_CITY',
                     id: city.id,
                     i
-                  });
-                }}>
-                  <span className="glyphicon glyphicon-remove"></span></button>
-              </li>
+                    });
+                  }}>&times;
+                </p>
+              </div>
             )}
-          </ul>
-        </div>
+            <div
+              className="searchItem">
+              <form
+                className=""
+                onSubmit={this.handleSubmit}>
+                <input
+                  className=""
+                  ref={(node) => { this.input = node; }}
+                required />
+                <span className="highlight"></span>
+                <span className="bar"></span>
+                <label>add city</label>
+              </form>
+            </div>
       </div>
     );
   }});
