@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers,
          applyMiddleware } from 'redux';
@@ -54,7 +54,7 @@ const store = createStore(
   middleware
 );
 
-const CityApp = React.createClass({
+class CityApp extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const city = this.input.value;
@@ -67,7 +67,7 @@ const CityApp = React.createClass({
       });
     }
     this.input.value = '';
-  },
+  }
 
   render() {
     return (
@@ -97,7 +97,7 @@ const CityApp = React.createClass({
               className="searchItem">
               <form
                 className=""
-                onSubmit={this.handleSubmit}>
+                onSubmit={e => this.handleSubmit(e)}>
                 <input
                   className=""
                   ref={(node) => { this.input = node; }}
@@ -109,7 +109,7 @@ const CityApp = React.createClass({
             </div>
       </div>
     );
-  }});
+  }}
 
 const render = () => {
   ReactDOM.render(
